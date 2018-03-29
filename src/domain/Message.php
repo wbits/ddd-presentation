@@ -20,7 +20,7 @@ final class Message
     public static function cloneWithNewContent(Message $message, Content $newContent, Author $changedBy): Message
     {
         if ($changedBy != $message->author) {
-            throw new \InvalidArgumentException('you are not allowed to change the content of this post');
+            throw new \InvalidArgumentException('the content can only be changed by the original author');
         }
 
         return new self($newContent, $message->author, $message->writtenAt);
