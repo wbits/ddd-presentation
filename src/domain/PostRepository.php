@@ -10,5 +10,10 @@ interface PostRepository
 
     public function get(PostId $postId): Post;
 
+    /**
+     * @return Post[]
+     */
+    public function getAll(): array;
+
     public function save(Post $post);
 }

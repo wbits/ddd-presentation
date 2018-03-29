@@ -25,6 +25,14 @@ final class InMemoryPostRepository implements PostRepository
         return $this->posts[(string) $postId];
     }
 
+    /**
+     * @return Post[]
+     */
+    public function getAll(): array
+    {
+        return $this->posts;
+    }
+
     public function save(Post $post)
     {
         $this->posts[(string) $post->id()] = $post;
