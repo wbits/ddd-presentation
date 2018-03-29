@@ -15,9 +15,9 @@ final class InMemoryPostRepository implements PostRepository
 
     public function getNextId(): PostId
     {
-        $id = $this->id++;
+        $this->id++;
 
-        return new PostId((string) $id);
+        return new PostId((string) $this->id);
     }
 
     public function get(PostId $postId): Post

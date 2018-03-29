@@ -8,6 +8,7 @@ use InSided\DDD\Application\PostService;
 use InSided\DDD\domain\Author;
 use InSided\DDD\domain\Content;
 use InSided\DDD\domain\Message;
+use InSided\DDD\domain\Post;
 use InSided\DDD\Infrastructure\InMemoryPostRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -41,5 +42,24 @@ final class PostServiceTest extends TestCase
     public function testItReturnsAnEmptyArrayWhenNoPostsWereWritten()
     {
         self::assertCount(0, $this->service->getPostList());
+    }
+
+    public function testItCanFetchAListOfReplies()
+    {
+        $postId1 = $this->repository->getNextId();
+        $postId2 = $this->repository->getNextId();
+        $postId3 = $this->repository->getNextId();
+        $message = new Message(new Content('some content'), new Author('Jack'), new \DateTimeImmutable());
+        $this->repository->save(new Post($postId1, $message));
+        $this->repository->save(new Post($postId2, $message));
+        $this->repository->save(new Post($postId3, $message));
+
+        $postList = $this->service->getPostList();
+
+        self::assertCount(3, $postList);
+
+        foreach ($postList as $post) {
+            self::assertInstanceOf(Post::class, $post);
+        }
     }
 }
