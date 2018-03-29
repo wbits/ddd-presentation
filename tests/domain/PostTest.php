@@ -6,6 +6,7 @@ namespace unit\InSided\DDD\domain;
 
 use InSided\DDD\domain\Author;
 use InSided\DDD\domain\Content;
+use InSided\DDD\domain\Message;
 use InSided\DDD\domain\Post;
 use InSided\DDD\domain\PostId;
 use PHPUnit\Framework\TestCase;
@@ -85,6 +86,6 @@ final class PostTest extends TestCase
 
     private function writeAPost(): Post
     {
-        return Post::write($this->postId, $this->content, $this->author, $this->fakeNow);
+        return Post::write($this->postId, new Message($this->content, $this->author, $this->fakeNow));
     }
 }

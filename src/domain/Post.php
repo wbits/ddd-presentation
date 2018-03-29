@@ -7,21 +7,17 @@ namespace InSided\DDD\domain;
 final class Post
 {
     private $postId;
-    private $content;
-    private $author;
-    private $writtenAt;
+    private $message;
 
-    public function __construct(PostId $postId, Content $content, Author $author, \DateTimeImmutable $writtenAt)
+    public function __construct(PostId $postId, Message $message)
     {
         $this->postId = $postId;
-        $this->content = $content;
-        $this->author = $author;
-        $this->writtenAt = $writtenAt;
+        $this->message = $message;
     }
 
-    public static function write(PostId $postId, Content $content, Author $author, \DateTimeImmutable $writtenAt)
+    public static function write(PostId $postId, Message $message)
     {
-        return new self($postId, $content, $author, $writtenAt);
+        return new self($postId, $message);
     }
 
     public function id(): PostId
@@ -31,25 +27,25 @@ final class Post
 
     public function content(): Content
     {
-        return $this->content;
+        return $this->message->content();
     }
 
     public function author(): Author
     {
-        return $this->author;
+        return $this->message->author();
     }
 
     public function writtenAt(): \DateTimeImmutable
     {
-        return $this->writtenAt;
+        return $this->message->writtenAt();
     }
 
     public function changeContent(Content $newContent, Author $changedBy)
     {
-        if ($changedBy != $this->author) {
+        if ($changedBy != $this->author()) {
             throw new \InvalidArgumentException('you are not allowed to change the content of this post');
         }
 
-        $this->content = $newContent;
+        $this->message = new Message($newContent, $this->author(), $this->writtenAt());
     }
 }
