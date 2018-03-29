@@ -37,8 +37,12 @@ final class Post
         return $this->author;
     }
 
-    public function changeContent(Content $newContent)
+    public function changeContent(Content $newContent, Author $changedBy)
     {
+        if ($changedBy != $this->author) {
+            throw new \InvalidArgumentException('you are not allowed to change the content of this post');
+        }
+
         $this->content = $newContent;
     }
 }

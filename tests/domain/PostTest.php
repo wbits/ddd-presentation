@@ -54,7 +54,7 @@ final class PostTest extends TestCase
         $post = $this->writeAPost();
         $newContent = new Content('some new content');
 
-        $post->changeContent($newContent);
+        $post->changeContent($newContent, $this->author);
 
         self::assertEquals($newContent, $post->content());
     }
