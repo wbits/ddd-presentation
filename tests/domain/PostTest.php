@@ -18,4 +18,11 @@ final class PostTest extends TestCase
         self::assertEquals($content, $post->content());
         self::assertEquals($author, $post->author());
     }
+
+    public function testItRaisesAnErrorWhenTheContentIsShorterThenThreeCharacters()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Post::write('12', 'John Doe');
+    }
 }
