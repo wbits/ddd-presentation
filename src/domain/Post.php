@@ -7,5 +7,12 @@ namespace InSided\DDD\domain;
 final class Post
 {
 
+    public function content()
+    {
+    }
+
+    public function author()
+    {
+    }
 }
 
