@@ -19,24 +19,4 @@ final class PostTest extends TestCase
         self::assertEquals($content, $post->content());
         self::assertEquals($author, $post->author());
     }
-
-    public function testItRaisesAnErrorWhenTheContentIsShorterThenThreeCharacters()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        Post::write(new Content('12'), 'John Doe');
-    }
-
-    public function testItRaisesAnErrorWhenTheContentIsLongerThenEightyCharacters()
-    {
-        $contentThatIsTooLong = '';
-        for ($i = 1; $i <= 9; ++$i) {
-            $contentThatIsTooLong .= '0123456789';
-        }
-        self::assertTrue(mb_strlen($contentThatIsTooLong) > 80);
-
-        $this->expectException(\InvalidArgumentException::class);
-
-        Post::write(new Content($contentThatIsTooLong), 'John Doe');
-    }
 }
