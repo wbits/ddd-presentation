@@ -1,0 +1,29 @@
+{
+    "name": "insided/ddd-presentation",
+    "description": "dev presentation on ddd practices",
+    "require-dev": {
+        "phpunit/phpunit": "^7.0",
+        "friendsofphp/php-cs-fixer": "^2.11"
+    },
+    "authors": [
+        {
+            "name": "Yellow Squad",
+            "email": "yellow.squad@insided.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "InSided\\DDD\\": [
+                "src/"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "unit\\InSided\\DDD\\": [
+                "tests/"
+            ]
+        }
+    },
+    "require": {}
+}
