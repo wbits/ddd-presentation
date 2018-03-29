@@ -59,6 +59,17 @@ final class PostTest extends TestCase
         self::assertEquals($newContent, $post->content());
     }
 
+    public function testItTheContentCanBeChangedOnlyByTheAuthorThatHasWrittenThePost()
+    {
+        $post = $this->writeAPost();
+        $newContent = new Content('some new content');
+        $authorThatChangesTheContent = new Author('Jennifer');
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $post->changeContent($newContent, $authorThatChangesTheContent);
+    }
+
     private function writeAPost(): Post
     {
         return Post::write($this->postId, $this->content, $this->author);
