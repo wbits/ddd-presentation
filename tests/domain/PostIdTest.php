@@ -16,4 +16,3 @@ final class PostIdTest extends TestCase
         new PostId('');
     }
 }
-

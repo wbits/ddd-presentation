@@ -16,4 +16,3 @@ final class AuthorTest extends TestCase
         new Author('');
     }
 }
-

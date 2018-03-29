@@ -17,4 +17,3 @@ final class PostId
         $this->postId = $postId;
     }
 }
-

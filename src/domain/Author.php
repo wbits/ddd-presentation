@@ -17,4 +17,3 @@ final class Author
         $this->name = $name;
     }
 }
-
