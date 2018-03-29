@@ -36,4 +36,8 @@ final class Post
     {
         return $this->author;
     }
+
+    public function changeContent($newContent)
+    {
+    }
 }

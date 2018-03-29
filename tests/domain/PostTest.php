@@ -49,7 +49,17 @@ final class PostTest extends TestCase
         self::assertEquals($this->postId, $post->id());
     }
 
-    private function writeAPost()
+    public function testTheContentCanBeChanged()
+    {
+        $post = $this->writeAPost();
+        $newContent = new Content('some new content');
+
+        $post->changeContent($newContent);
+
+        self::assert($newContent, $post->content());
+    }
+
+    private function writeAPost(): Post
     {
         return Post::write($this->postId, $this->content, $this->author);
     }
