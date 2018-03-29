@@ -11,23 +11,35 @@ use PHPUnit\Framework\TestCase;
 
 final class PostTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    private $author;
+
+    /**
+     * @var Content
+     */
+    private $content;
+
+    protected function setUp()
+    {
+        $this->author = 'John Doe';
+        $this->content = new Content('This is the content of a post');
+    }
+
     public function testItCanBeWrittenByAnAuthor()
     {
         $postId = new PostId('1');
-        $content = new Content('This is the content of a post');
-        $author = 'John Doe';
-        $post = Post::write($postId, $content, $author);
+        $post = Post::write($postId, $this->content, $this->author);
 
-        self::assertEquals($content, $post->content());
-        self::assertEquals($author, $post->author());
+        self::assertEquals($this->content, $post->content());
+        self::assertEquals($this->author, $post->author());
     }
 
     public function testItGetsWrittenWithAPostId()
     {
         $postId = new PostId('1');
-        $content = new Content('This is the content of a post');
-        $author = 'John Doe';
-        $post = Post::write($postId, $content, $author);
+        $post = Post::write($postId, $this->content, $this->author);
 
         self::assertEquals($postId, $post->id());
     }
