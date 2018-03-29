@@ -24,4 +24,12 @@ final class PostServiceTest extends TestCase
 
         self::assertEquals($postId, $post->id());
     }
+
+    public function testItReturnsAnEmptyArrayWhenNoPostsWereWritten()
+    {
+        $repository = new InMemoryPostRepository();
+        $service = new PostService($repository);
+
+        self::assertCount(0, $service->getPostList());
+    }
 }

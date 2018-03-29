@@ -32,4 +32,8 @@ final class PostService
     {
         return $this->repository->get($postId);
     }
+
+    public function getPostList()
+    {
+    }
 }
