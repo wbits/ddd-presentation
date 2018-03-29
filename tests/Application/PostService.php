@@ -24,6 +24,7 @@ final class PostServiceTest extends TestCase
         $repository = $this->prophesize(PostRepository::class);
         $repository->save($post)->willReturn($postId);
         $repository->get($postId)->willReturn($post);
+        $repository->getNextId()->willReturn($postId);
 
         $service = new PostService($repository->reveal());
 

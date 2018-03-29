@@ -20,7 +20,7 @@ final class PostService
 
     public function writeAPost(Message $message): PostId
     {
-        $postId = new PostId('1');
+        $postId = $this->repository->getNextId();
         $post = new Post($postId, $message);
 
         $this->repository->save($post);
