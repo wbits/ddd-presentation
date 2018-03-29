@@ -13,7 +13,7 @@ final class PostTest extends TestCase
     {
         $content = 'This is the content of a post';
         $author = 'John Doe';
-        $post = new Post($content, $author);
+        $post = Post::write($content, $author);
 
         self::assertEquals($content, $post->content());
         self::assertEquals($author, $post->author());

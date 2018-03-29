@@ -15,6 +15,11 @@ final class Post
         $this->author = $author;
     }
 
+    public static function write(string $content, string $author)
+    {
+        return new self($content, $author);
+    }
+
     public function content()
     {
         return $this->content;
