@@ -10,7 +10,7 @@
  
  6 A list of posts can be filtered by author
  
- 7 A list of posts can be sorted by oldest first
+ 7 A list of posts has a default sorting of oldest first
  
  8 A list of posts can be sorted by most recent first
  
