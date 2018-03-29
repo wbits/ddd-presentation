@@ -16,4 +16,9 @@ final class PostId
 
         $this->postId = $postId;
     }
+
+    public function __toString(): string
+    {
+        return $this->postId;
+    }
 }
