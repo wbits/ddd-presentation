@@ -35,4 +35,4 @@ return PhpCsFixer\Config::create()
         ]
     )
     ->setFinder($finder);
-q
+

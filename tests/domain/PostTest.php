@@ -29,10 +29,10 @@ final class PostTest extends TestCase
     public function testItRaisesAnErrorWhenTheContentIsLongerThenEightyCharacters()
     {
         $contentThatIsTooLong = '';
-        for ($i = 1; $i <= 9; $i++) {
+        for ($i = 1; $i <= 9; ++$i) {
             $contentThatIsTooLong .= '0123456789';
         }
-        self::assertTrue(strlen($contentThatIsTooLong) > 80);
+        self::assertTrue(mb_strlen($contentThatIsTooLong) > 80);
 
         $this->expectException(\InvalidArgumentException::class);
 

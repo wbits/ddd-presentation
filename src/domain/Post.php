@@ -11,11 +11,11 @@ final class Post
 
     public function __construct(string $content, string $author)
     {
-        if (strlen($content) < 3) {
+        if (mb_strlen($content) < 3) {
             throw new \InvalidArgumentException('the content is too short');
         }
 
-        if (strlen($content) > 80) {
+        if (mb_strlen($content) > 80) {
             throw new \InvalidArgumentException('the content is too long');
         }
 
