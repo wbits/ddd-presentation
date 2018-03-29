@@ -31,9 +31,7 @@ final class PostServiceTest extends TestCase
 
     public function testItCanSaveAndRetrieveAPost()
     {
-        $message = new Message(new Content('some content'), new Author('Jack'), new \DateTimeImmutable());
-
-        $postId = $this->service->writeAPost($message);
+        $postId = $this->service->writeAPost($this->createMessage('some content', 'Jack'));
         $post = $this->service->getPost($postId);
 
         self::assertEquals($postId, $post->id());
@@ -46,13 +44,9 @@ final class PostServiceTest extends TestCase
 
     public function testItCanFetchAListOfReplies()
     {
-        $postId1 = $this->repository->getNextId();
-        $postId2 = $this->repository->getNextId();
-        $postId3 = $this->repository->getNextId();
-        $message = new Message(new Content('some content'), new Author('Jack'), new \DateTimeImmutable());
-        $this->repository->save(new Post($postId1, $message));
-        $this->repository->save(new Post($postId2, $message));
-        $this->repository->save(new Post($postId3, $message));
+        $this->repository->save($this->createAPost('foo', 'john'));
+        $this->repository->save($this->createAPost('bar', 'jack'));
+        $this->repository->save($this->createAPost('zap', 'jill'));
 
         $postList = $this->service->getPostList();
 
@@ -61,5 +55,18 @@ final class PostServiceTest extends TestCase
         foreach ($postList as $post) {
             self::assertInstanceOf(Post::class, $post);
         }
+    }
+
+    private function createAPost(string $content, string $authorName): Post
+    {
+        return new Post(
+            $this->repository->getNextId(),
+            $this->createMessage($content, $authorName)
+        );
+    }
+
+    private function createMessage(string $content, string $authorName): Message
+    {
+        return new Message(new Content($content), new Author($authorName), new \DateTimeImmutable());
     }
 }
