@@ -10,14 +10,14 @@ final class Post
     private $content;
     private $author;
 
-    public function __construct(PostId $postId, Content $content, string $author)
+    public function __construct(PostId $postId, Content $content, Author $author)
     {
         $this->postId = $postId;
         $this->content = $content;
         $this->author = $author;
     }
 
-    public static function write(PostId $postId, Content $content, string $author)
+    public static function write(PostId $postId, Content $content, Author $author)
     {
         return new self($postId, $content, $author);
     }
@@ -32,7 +32,7 @@ final class Post
         return $this->content;
     }
 
-    public function author(): string
+    public function author(): Author
     {
         return $this->author;
     }

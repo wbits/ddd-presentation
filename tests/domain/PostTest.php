@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace unit\InSided\DDD\domain;
 
+use InSided\DDD\domain\Author;
 use InSided\DDD\domain\Content;
 use InSided\DDD\domain\Post;
 use InSided\DDD\domain\PostId;
@@ -17,7 +18,7 @@ final class PostTest extends TestCase
     private $postId;
 
     /**
-     * @var string
+     * @var Author
      */
     private $author;
 
@@ -29,7 +30,7 @@ final class PostTest extends TestCase
     protected function setUp()
     {
         $this->postId = new PostId('1');
-        $this->author = 'John Doe';
+        $this->author = new Author('John Doe');
         $this->content = new Content('This is the content of a post');
     }
 
