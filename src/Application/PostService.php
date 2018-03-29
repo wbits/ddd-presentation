@@ -1,9 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace InSided\DDD\Application;
 
+use InSided\DDD\domain\Message;
+use InSided\DDD\domain\Post;
+use InSided\DDD\domain\PostId;
 use InSided\DDD\domain\PostRepository;
 
 final class PostService
@@ -15,12 +18,18 @@ final class PostService
         $this->repository = $repository;
     }
 
-    public function writeAPost($message)
+    public function writeAPost(Message $message): PostId
     {
+        $postId = new PostId('1');
+        $post = new Post($postId, $message);
+
+        $this->repository->save($post);
+
+        return $postId;
     }
 
-    public function getPost($postId)
+    public function getPost(PostId $postId): Post
     {
+        return $this->repository->get($postId);
     }
 }
-

@@ -7,6 +7,6 @@ namespace InSided\DDD\domain;
 interface PostRepository
 {
     public function get(PostId $postId): Post;
+
     public function save(Post $post);
 }
-

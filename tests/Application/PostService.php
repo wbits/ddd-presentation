@@ -31,4 +31,3 @@ final class PostServiceTest extends TestCase
         self::assertEquals($post, $service->getPost($postId));
     }
 }
-
