@@ -22,15 +22,11 @@ final class InMemoryPostRepository implements PostRepository
 
     public function get(PostId $postId): Post
     {
-        foreach ($this->posts as $post) {
-            if ($post->id() == $postId) {
-                return $post;
-            }
-        }
+        return $this->posts[(string) $postId];
     }
 
     public function save(Post $post)
     {
-        $this->posts[] = $post;
+        $this->posts[(string) $post->id()] = $post;
     }
 }
