@@ -15,6 +15,10 @@ final class Post
             throw new \InvalidArgumentException('the content is too short');
         }
 
+        if (strlen($content) > 80) {
+            throw new \InvalidArgumentException('the content is too long');
+        }
+
         $this->content = $content;
         $this->author = $author;
     }
