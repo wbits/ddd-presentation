@@ -9,7 +9,7 @@ final class Post
     private $content;
     private $author;
 
-    public function __construct($content, $author)
+    public function __construct(string $content, string $author)
     {
         $this->content = $content;
         $this->author = $author;
@@ -20,12 +20,12 @@ final class Post
         return new self($content, $author);
     }
 
-    public function content()
+    public function content(): string
     {
         return $this->content;
     }
 
-    public function author()
+    public function author(): string
     {
         return $this->author;
     }
