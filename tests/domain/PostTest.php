@@ -25,4 +25,17 @@ final class PostTest extends TestCase
 
         Post::write('12', 'John Doe');
     }
+
+    public function testItRaisesAnErrorWhenTheContentIsLongerThenEightyCharacters()
+    {
+        $contentThatIsTooLong = '';
+        for ($i = 1; $i <= 9; $i++) {
+            $contentThatIsTooLong .= '0123456789';
+        }
+        self::assertTrue(strlen($contentThatIsTooLong) > 80);
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        Post::write($contentThatIsTooLong, 'John Doe');
+    }
 }
