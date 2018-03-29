@@ -42,10 +42,6 @@ final class Post
 
     public function changeContent(Content $newContent, Author $changedBy)
     {
-        if ($changedBy != $this->author()) {
-            throw new \InvalidArgumentException('you are not allowed to change the content of this post');
-        }
-
-        $this->message = Message::cloneWithNewContent($this->message, $newContent);
+        $this->message = Message::cloneWithNewContent($this->message, $newContent, $changedBy);
     }
 }

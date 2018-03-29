@@ -17,8 +17,12 @@ final class Message
         $this->writtenAt = $writtenAt;
     }
 
-    public static function cloneWithNewContent(Message $message, $newContent): Message
+    public static function cloneWithNewContent(Message $message, Content $newContent, Author $changedBy): Message
     {
+        if ($changedBy != $message->author) {
+            throw new \InvalidArgumentException('you are not allowed to change the content of this post');
+        }
+
         return new self($newContent, $message->author, $message->writtenAt);
     }
 
