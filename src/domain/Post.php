@@ -37,7 +37,8 @@ final class Post
         return $this->author;
     }
 
-    public function changeContent($newContent)
+    public function changeContent(Content $newContent)
     {
+        $this->content = $newContent;
     }
 }

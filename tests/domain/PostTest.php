@@ -56,7 +56,7 @@ final class PostTest extends TestCase
 
         $post->changeContent($newContent);
 
-        self::assert($newContent, $post->content());
+        self::assertEquals($newContent, $post->content());
     }
 
     private function writeAPost(): Post
