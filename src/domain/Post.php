@@ -6,18 +6,25 @@ namespace InSided\DDD\domain;
 
 final class Post
 {
+    private $postId;
     private $content;
     private $author;
 
-    public function __construct(Content $content, string $author)
+    public function __construct(PostId $postId, Content $content, string $author)
     {
+        $this->postId = $postId;
         $this->content = $content;
         $this->author = $author;
     }
 
-    public static function write(Content $content, string $author)
+    public static function write(PostId $postId, Content $content, string $author)
     {
-        return new self($content, $author);
+        return new self($postId, $content, $author);
+    }
+
+    public function id(): PostId
+    {
+        return $this->postId;
     }
 
     public function content(): Content
