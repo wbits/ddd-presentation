@@ -15,4 +15,9 @@ final class PostIdTest extends TestCase
 
         new PostId('');
     }
+
+    public function testItCanBeCastToString()
+    {
+        self::assertEquals('123', (string) (new PostId('123')));
+    }
 }
