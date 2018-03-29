@@ -33,7 +33,11 @@ final class PostService
         return $this->repository->get($postId);
     }
 
-    public function getPostList()
+    /**
+     * @return Post[]
+     */
+    public function getPostList(): array
     {
+        return $this->repository->getAll();
     }
 }
