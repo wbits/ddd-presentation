@@ -9,26 +9,18 @@ final class Post
     private $content;
     private $author;
 
-    public function __construct(string $content, string $author)
+    public function __construct(Content $content, string $author)
     {
-        if (mb_strlen($content) < 3) {
-            throw new \InvalidArgumentException('the content is too short');
-        }
-
-        if (mb_strlen($content) > 80) {
-            throw new \InvalidArgumentException('the content is too long');
-        }
-
         $this->content = $content;
         $this->author = $author;
     }
 
-    public static function write(string $content, string $author)
+    public static function write(Content $content, string $author)
     {
         return new self($content, $author);
     }
 
-    public function content(): string
+    public function content(): Content
     {
         return $this->content;
     }
