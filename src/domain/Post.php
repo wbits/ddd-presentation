@@ -11,6 +11,10 @@ final class Post
 
     public function __construct(string $content, string $author)
     {
+        if (strlen($content) < 3) {
+            throw new \InvalidArgumentException('the content is too short');
+        }
+
         $this->content = $content;
         $this->author = $author;
     }
