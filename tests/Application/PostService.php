@@ -13,23 +13,33 @@ use PHPUnit\Framework\TestCase;
 
 final class PostServiceTest extends TestCase
 {
+    /**
+     * @var InMemoryPostRepository
+     */
+    private $repository;
+    /**
+     * @var PostService
+     */
+    private $service;
+
+    protected function setUp()
+    {
+        $this->repository = new InMemoryPostRepository();
+        $this->service = new PostService($this->repository);
+    }
+
     public function testItCanSaveAndRetrieveAPost()
     {
         $message = new Message(new Content('some content'), new Author('Jack'), new \DateTimeImmutable());
-        $repository = new InMemoryPostRepository();
-        $service = new PostService($repository);
 
-        $postId = $service->writeAPost($message);
-        $post = $service->getPost($postId);
+        $postId = $this->service->writeAPost($message);
+        $post = $this->service->getPost($postId);
 
         self::assertEquals($postId, $post->id());
     }
 
     public function testItReturnsAnEmptyArrayWhenNoPostsWereWritten()
     {
-        $repository = new InMemoryPostRepository();
-        $service = new PostService($repository);
-
-        self::assertCount(0, $service->getPostList());
+        self::assertCount(0, $this->service->getPostList());
     }
 }
