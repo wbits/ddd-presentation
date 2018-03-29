@@ -9,17 +9,19 @@ final class Post
     private $postId;
     private $content;
     private $author;
+    private $writtenAt;
 
-    public function __construct(PostId $postId, Content $content, Author $author)
+    public function __construct(PostId $postId, Content $content, Author $author, \DateTimeImmutable $writtenAt)
     {
         $this->postId = $postId;
         $this->content = $content;
         $this->author = $author;
+        $this->writtenAt = $writtenAt;
     }
 
-    public static function write(PostId $postId, Content $content, Author $author)
+    public static function write(PostId $postId, Content $content, Author $author, \DateTimeImmutable $writtenAt)
     {
-        return new self($postId, $content, $author);
+        return new self($postId, $content, $author, $writtenAt);
     }
 
     public function id(): PostId
@@ -35,6 +37,11 @@ final class Post
     public function author(): Author
     {
         return $this->author;
+    }
+
+    public function writtenAt(): \DateTimeImmutable
+    {
+        return $this->writtenAt;
     }
 
     public function changeContent(Content $newContent, Author $changedBy)
