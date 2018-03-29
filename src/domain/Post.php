@@ -46,6 +46,6 @@ final class Post
             throw new \InvalidArgumentException('you are not allowed to change the content of this post');
         }
 
-        $this->message = new Message($newContent, $this->author(), $this->writtenAt());
+        $this->message = Message::cloneWithNewContent($this->message, $newContent);
     }
 }

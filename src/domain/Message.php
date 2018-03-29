@@ -17,6 +17,11 @@ final class Message
         $this->writtenAt = $writtenAt;
     }
 
+    public static function cloneWithNewContent(Message $message, $newContent): Message
+    {
+        return new self($newContent, $message->author, $message->writtenAt);
+    }
+
     public function content(): Content
     {
         return $this->content;
