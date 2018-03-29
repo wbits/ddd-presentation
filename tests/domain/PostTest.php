@@ -27,11 +27,17 @@ final class PostTest extends TestCase
      */
     private $content;
 
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $fakeNow;
+
     protected function setUp()
     {
         $this->postId = new PostId('1');
         $this->author = new Author('John Doe');
         $this->content = new Content('This is the content of a post');
+        $this->fakeNow = new \DateTimeImmutable('now');
     }
 
     public function testItCanBeWrittenByAnAuthor()
@@ -70,8 +76,15 @@ final class PostTest extends TestCase
         $post->changeContent($newContent, $authorThatChangesTheContent);
     }
 
+    public function testItRecordsTheTimeOnWhichItWasWritten()
+    {
+        $post = $this->writeAPost();
+
+        self::assertEquals($this->fakeNow, $post->writtenAt());
+    }
+
     private function writeAPost(): Post
     {
-        return Post::write($this->postId, $this->content, $this->author);
+        return Post::write($this->postId, $this->content, $this->author, $this->fakeNow);
     }
 }
