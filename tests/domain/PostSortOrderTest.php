@@ -11,14 +11,14 @@ final class PostSortOrderTest extends TestCase
 {
     public function testItDefinesSortingByWrittenAt()
     {
-        $sortOrder = new PostSortOrder();
+        $sortOrder = PostSortOrder::oldestFirst();
 
         self::assertEquals('writtenAt', $sortOrder->sortBy());
     }
 
     public function testItDefinesOrderByAscending()
     {
-        $sortOrder = new PostSortOrder();
+        $sortOrder = PostSortOrder::oldestFirst();
 
         self::assertTrue($sortOrder->isAscending());
     }
