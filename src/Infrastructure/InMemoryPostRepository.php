@@ -36,7 +36,9 @@ final class InMemoryPostRepository implements PostRepository
 
     public function getAllByAuthor(Author $author): array
     {
-        // TODO: Implement getAllByAuthor() method.
+        return array_filter($this->posts, function (Post $post) use ($author) {
+            return $post->author() == $author;
+        });
     }
 
     public function save(Post $post)

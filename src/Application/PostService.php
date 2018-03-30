@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace InSided\DDD\Application;
 
+use InSided\DDD\domain\Author;
 use InSided\DDD\domain\Message;
 use InSided\DDD\domain\Post;
 use InSided\DDD\domain\PostId;
@@ -41,8 +42,13 @@ final class PostService
         return $this->repository->getAll();
     }
 
-    public function getPostListByAuthor($author)
+    /**
+     * @param Author $author
+     *
+     * @return Post[]
+     */
+    public function getPostListByAuthor(Author $author): array
     {
-        return [];
+        return $this->repository->getAllByAuthor($author);
     }
 }
