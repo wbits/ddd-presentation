@@ -34,7 +34,11 @@ final class InMemoryPostRepository implements PostRepository
      */
     public function getAll(PostSortOrder $postSortOrder): array
     {
-        usort($this->posts, [$this, 'sortByOldestFirst']);
+        if ($postSortOrder->isAscending()) {
+            usort($this->posts, [$this, 'sortByOldestFirst']);
+        } else {
+            usort($this->posts, [$this, 'sortByMostRecentFirst']);
+        }
 
         return $this->posts;
     }
@@ -51,7 +55,11 @@ final class InMemoryPostRepository implements PostRepository
             return $post->author() == $author;
         });
 
-        usort($posts, [$this, 'sortByOldestFirst']);
+        if ($postSortOrder->isAscending()) {
+            usort($posts, [$this, 'sortByOldestFirst']);
+        } else {
+            usort($posts, [$this, 'sortByMostRecentFirst']);
+        }
 
         return $posts;
     }
@@ -59,6 +67,15 @@ final class InMemoryPostRepository implements PostRepository
     public function save(Post $post)
     {
         $this->posts[(string) $post->id()] = $post;
+    }
+
+    private function sortByMostRecentFirst(Post $postA, Post $postB): int
+    {
+        if ($postA->writtenAt() == $postB->writtenAt()) {
+            return 0;
+        }
+
+        return ($postA->writtenAt() > $postB->writtenAt()) ? -1 : 1;
     }
 
     private function sortByOldestFirst(Post $postA, Post $postB): int
