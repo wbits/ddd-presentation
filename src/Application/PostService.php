@@ -9,6 +9,7 @@ use InSided\DDD\domain\Message;
 use InSided\DDD\domain\Post;
 use InSided\DDD\domain\PostId;
 use InSided\DDD\domain\PostRepository;
+use InSided\DDD\domain\PostSortOrder;
 
 final class PostService
 {
@@ -35,20 +36,23 @@ final class PostService
     }
 
     /**
+     * @param PostSortOrder $postSortOrder
+     *
      * @return Post[]
      */
-    public function getPostList(): array
+    public function getPostList(PostSortOrder $postSortOrder = null): array
     {
-        return $this->repository->getAll();
+        return $this->repository->getAll($postSortOrder ?? PostSortOrder::oldestFirst());
     }
 
     /**
      * @param Author $author
+     * @param PostSortOrder|null $postSortOrder
      *
      * @return Post[]
      */
-    public function getPostListByAuthor(Author $author): array
+    public function getPostListByAuthor(Author $author, PostSortOrder $postSortOrder = null): array
     {
-        return $this->repository->getAllByAuthor($author);
+        return $this->repository->getAllByAuthor($author, $postSortOrder ?? PostSortOrder::oldestFirst());
     }
 }

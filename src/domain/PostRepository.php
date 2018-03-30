@@ -11,11 +11,19 @@ interface PostRepository
     public function get(PostId $postId): Post;
 
     /**
+     * @param PostSortOrder $postSortOrder
+     *
      * @return Post[]
      */
-    public function getAll(): array;
+    public function getAll(PostSortOrder $postSortOrder): array;
 
-    public function getAllByAuthor(Author $author): array;
+    /**
+     * @param Author $author
+     * @param PostSortOrder $postSortOrder
+     *
+     * @return Post[]
+     */
+    public function getAllByAuthor(Author $author, PostSortOrder $postSortOrder): array;
 
     public function save(Post $post);
 }

@@ -8,6 +8,7 @@ use InSided\DDD\domain\Author;
 use InSided\DDD\domain\Post;
 use InSided\DDD\domain\PostId;
 use InSided\DDD\domain\PostRepository;
+use InSided\DDD\domain\PostSortOrder;
 
 final class InMemoryPostRepository implements PostRepository
 {
@@ -27,9 +28,11 @@ final class InMemoryPostRepository implements PostRepository
     }
 
     /**
+     * @param PostSortOrder $postSortOrder
+     *
      * @return Post[]
      */
-    public function getAll(): array
+    public function getAll(PostSortOrder $postSortOrder): array
     {
         usort($this->posts, [$this, 'sortByOldestFirst']);
 
@@ -38,10 +41,11 @@ final class InMemoryPostRepository implements PostRepository
 
     /**
      * @param Author $author
+     * @param PostSortOrder $postSortOrder
      *
      * @return Post[]
      */
-    public function getAllByAuthor(Author $author): array
+    public function getAllByAuthor(Author $author, PostSortOrder $postSortOrder): array
     {
         $posts = array_filter($this->posts, function (Post $post) use ($author) {
             return $post->author() == $author;
