@@ -51,9 +51,21 @@ final class InMemoryPostRepository implements PostRepository
      */
     public function getAllByAuthor(Author $author): array
     {
-        return array_filter($this->posts, function (Post $post) use ($author) {
+        $posts = array_filter($this->posts, function (Post $post) use ($author) {
             return $post->author() == $author;
         });
+
+        $sortingCallBack = function (Post $postA, Post $postB) {
+            if ($postA->writtenAt() == $postB->writtenAt()) {
+                return 0;
+            }
+
+            return ($postA->writtenAt() < $postB->writtenAt()) ? -1: 1;
+        };
+
+        usort($posts, $sortingCallBack);
+
+        return $posts;
     }
 
     public function save(Post $post)
