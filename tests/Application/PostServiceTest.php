@@ -86,6 +86,19 @@ final class PostServiceTest extends TestCase
         self::assertEquals($mostRecentWrittenAt, $postList[1]->writtenAt());
     }
 
+    public function testItReturnsPostListsByAuthorThatAreSortedByOldestFirst()
+    {
+        $mostRecentWrittenAt = new \DateTimeImmutable('2015-01-10');
+        $oldestWrittenAt = new \DateTimeImmutable('2013-01-10');
+        $this->repository->save($this->createAPost('foo', 'jill', $mostRecentWrittenAt));
+        $this->repository->save($this->createAPost('zap', 'jill', $oldestWrittenAt));
+
+        $postList = array_values($this->service->getPostListByAuthor(new Author('jill')));
+
+        self::assertEquals($oldestWrittenAt, $postList[0]->writtenAt());
+        self::assertEquals($mostRecentWrittenAt, $postList[1]->writtenAt());
+    }
+
     private function createAPost(string $content, string $authorName, \DateTimeImmutable $writtenAt = null): Post
     {
         return new Post(
