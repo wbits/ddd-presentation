@@ -31,6 +31,16 @@ final class InMemoryPostRepository implements PostRepository
      */
     public function getAll(): array
     {
+        $sortingCallBack = function (Post $postA, Post $postB) {
+            if ($postA->writtenAt() == $postB->writtenAt()) {
+                return 0;
+            }
+
+            return ($postA->writtenAt() < $postB->writtenAt()) ? -1: 1;
+        };
+
+        usort($this->posts, $sortingCallBack);
+
         return $this->posts;
     }
 
