@@ -16,7 +16,7 @@ final class InMemoryPostRepository implements PostRepository
 
     public function getNextId(): PostId
     {
-        $this->id++;
+        ++$this->id;
 
         return new PostId((string) $this->id);
     }
@@ -34,6 +34,11 @@ final class InMemoryPostRepository implements PostRepository
         return $this->posts;
     }
 
+    /**
+     * @param Author $author
+     *
+     * @return Post[]
+     */
     public function getAllByAuthor(Author $author): array
     {
         return array_filter($this->posts, function (Post $post) use ($author) {

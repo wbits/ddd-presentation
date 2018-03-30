@@ -73,7 +73,6 @@ final class PostServiceTest extends TestCase
         }
     }
 
-
     private function createAPost(string $content, string $authorName): Post
     {
         return new Post(
