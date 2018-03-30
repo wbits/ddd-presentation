@@ -15,7 +15,7 @@ final class PostSortOrder
         $this->ascending = $ascending;
     }
 
-    public static function oldestFirst()
+    public static function oldestFirst(): PostSortOrder
     {
         return new self('writtenAt', true);
     }
