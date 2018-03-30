@@ -73,16 +73,31 @@ final class PostServiceTest extends TestCase
         }
     }
 
-    private function createAPost(string $content, string $authorName): Post
+    public function testItReturnsPostListsThatAreSortedByOldestFirst()
+    {
+        $mostRecentWrittenAt = new \DateTimeImmutable('2015-01-10');
+        $oldestWrittenAt = new \DateTimeImmutable('2013-01-10');
+        $this->repository->save($this->createAPost('foo', 'john', $mostRecentWrittenAt));
+        $this->repository->save($this->createAPost('zap', 'jill', $oldestWrittenAt));
+
+        $postList = array_values($this->service->getPostList());
+
+        self::assertEquals($oldestWrittenAt, $postList[0]->writtenAt());
+        self::assertEquals($mostRecentWrittenAt, $postList[1]->writtenAt());
+    }
+
+    private function createAPost(string $content, string $authorName, \DateTimeImmutable $writtenAt = null): Post
     {
         return new Post(
             $this->repository->getNextId(),
-            $this->createMessage($content, $authorName)
+            $this->createMessage($content, $authorName, $writtenAt)
         );
     }
 
-    private function createMessage(string $content, string $authorName): Message
+    private function createMessage(string $content, string $authorName, \DateTimeImmutable $writtenAt = null): Message
     {
-        return new Message(new Content($content), new Author($authorName), new \DateTimeImmutable());
+        $writtenAt = $writtenAt ?? new \DateTimeImmutable('now');
+
+        return new Message(new Content($content), new Author($authorName), $writtenAt);
     }
 }
