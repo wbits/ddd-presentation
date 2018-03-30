@@ -9,6 +9,7 @@ use InSided\DDD\domain\Author;
 use InSided\DDD\domain\Content;
 use InSided\DDD\domain\Message;
 use InSided\DDD\domain\Post;
+use InSided\DDD\domain\PostSortOrder;
 use InSided\DDD\Infrastructure\InMemoryPostRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -97,6 +98,19 @@ final class PostServiceTest extends TestCase
 
         self::assertEquals($oldestWrittenAt, $postList[0]->writtenAt());
         self::assertEquals($mostRecentWrittenAt, $postList[1]->writtenAt());
+    }
+
+    public function testItCanReturnAPostListSortedByMostRecentFirst()
+    {
+        $oldestWrittenAt = new \DateTimeImmutable('2013-01-10');
+        $mostRecentWrittenAt = new \DateTimeImmutable('2015-01-10');
+        $this->repository->save($this->createAPost('zap', 'jill', $oldestWrittenAt));
+        $this->repository->save($this->createAPost('foo', 'jill', $mostRecentWrittenAt));
+
+        $postList = array_values($this->service->getPostList(PostSortOrder::mostRecentFirst()));
+
+        self::assertEquals($mostRecentWrittenAt, $postList[0]->writtenAt());
+        self::assertEquals($oldestWrittenAt, $postList[1]->writtenAt());
     }
 
     private function createAPost(string $content, string $authorName, \DateTimeImmutable $writtenAt = null): Post
