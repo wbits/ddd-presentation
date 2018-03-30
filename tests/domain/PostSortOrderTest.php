@@ -22,4 +22,11 @@ final class PostSortOrderTest extends TestCase
 
         self::assertTrue($sortOrder->isAscending());
     }
+
+    public function testItOrdersDescendingWhenSortedByMostRecentFirst()
+    {
+        $sortOrder = PostSortOrder::mostRecentFirst();
+
+        self::assertFalse($sortOrder->isAscending());
+    }
 }

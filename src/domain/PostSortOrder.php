@@ -20,6 +20,10 @@ final class PostSortOrder
         return new self('writtenAt', true);
     }
 
+    public static function mostRecentFirst()
+    {
+    }
+
     public function sortBy(): string
     {
         return $this->sortBy;
