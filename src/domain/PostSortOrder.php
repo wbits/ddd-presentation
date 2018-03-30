@@ -6,9 +6,9 @@ namespace InSided\DDD\domain;
 
 final class PostSortOrder
 {
-
-    public function sortBy()
+    public function sortBy(): string
     {
+        return 'writtenAt';
     }
 }
 
