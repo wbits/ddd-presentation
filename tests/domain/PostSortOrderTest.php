@@ -23,4 +23,3 @@ final class PostSortOrderTest extends TestCase
         self::assertTrue($sortOrder->isAscending());
     }
 }
-

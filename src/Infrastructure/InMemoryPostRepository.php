@@ -63,6 +63,6 @@ final class InMemoryPostRepository implements PostRepository
             return 0;
         }
 
-        return ($postA->writtenAt() < $postB->writtenAt()) ? -1: 1;
+        return ($postA->writtenAt() < $postB->writtenAt()) ? -1 : 1;
     }
 }
