@@ -15,5 +15,12 @@ final class PostSortOrderTest extends TestCase
 
         self::assertEquals('writtenAt', $sortOrder->sortBy());
     }
+
+    public function testItDefinesOrderByAscending()
+    {
+        $sortOrder = new PostSortOrder();
+
+        self::assertTrue($sortOrder->isAscending());
+    }
 }
 
