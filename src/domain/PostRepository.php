@@ -15,5 +15,7 @@ interface PostRepository
      */
     public function getAll(): array;
 
+    public function getAllByAuthor(Author $author): array;
+
     public function save(Post $post);
 }
