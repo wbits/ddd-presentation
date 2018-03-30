@@ -20,8 +20,9 @@ final class PostSortOrder
         return new self('writtenAt', true);
     }
 
-    public static function mostRecentFirst()
+    public static function mostRecentFirst(): PostSortOrder
     {
+        return new self('writtenAt', false);
     }
 
     public function sortBy(): string
