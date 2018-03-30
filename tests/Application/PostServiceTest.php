@@ -57,6 +57,23 @@ final class PostServiceTest extends TestCase
         }
     }
 
+    public function testItCanFetchAListOfRepliesOfAGivenAuthor()
+    {
+        $this->repository->save($this->createAPost('foo', 'john'));
+        $this->repository->save($this->createAPost('bar', 'john'));
+        $this->repository->save($this->createAPost('zap', 'jill'));
+
+        $author = new Author('john');
+        $postList = $this->service->getPostListByAuthor($author);
+
+        self::assertCount(2, $postList);
+
+        foreach ($postList as $post) {
+            self::assertEquals($author, $post->author());
+        }
+    }
+
+
     private function createAPost(string $content, string $authorName): Post
     {
         return new Post(

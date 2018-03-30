@@ -40,4 +40,9 @@ final class PostService
     {
         return $this->repository->getAll();
     }
+
+    public function getPostListByAuthor($author)
+    {
+        return [];
+    }
 }
